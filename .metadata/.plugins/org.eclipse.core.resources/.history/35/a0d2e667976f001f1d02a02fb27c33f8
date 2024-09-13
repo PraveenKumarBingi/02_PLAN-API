@@ -1,0 +1,37 @@
+# Application name
+spring.application.name=APP-API
+
+# DataSource configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/insurance_db
+spring.datasource.username=root
+spring.datasource.password=Praveen@123
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Hibernate dialect for MySQL
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# Hibernate DDL auto (e.g., update schema automatically)
+spring.jpa.hibernate.ddl-auto=update
+
+# Show SQL statements
+spring.jpa.show-sql=true
+
+# Format SQL statements
+spring.jpa.properties.hibernate.format_sql=true
+
+# Connection pool settings (optional, for better performance)
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.idle-timeout=600000
+
+# Custom application messages
+planapi.messages.planSaveSucc=Plan Saved Successfully
+planapi.messages.planSaveFail=Plan Save Failed
+planapi.messages.planUpdateSucc=Plan Updated Successfully
+planapi.messages.planUpdateFail=Plan Failed to Update
+planapi.messages.planDeleteSucc=Plan Deleted Successfully
+planapi.messages.planDeleteFail=Plan Failed to Delete
+planapi.messages.planStatusChange=Plan Status Changed Successfully
+planapi.messages.planStatusChangeFail=Plan Status Change Failed
+
+

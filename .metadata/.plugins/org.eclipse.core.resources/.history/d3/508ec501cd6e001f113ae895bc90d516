@@ -1,0 +1,13 @@
+package com.app.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+
+public class EligibilityDetailsRepo {
+	@Query("select distinct(planName) from EligibilityDetails")
+	List<String> findPlanNames();
+	
+	@Query("select distinct(planStatus) from EligibilityDetails")
+	List<String> findPlanStatuses();
+}

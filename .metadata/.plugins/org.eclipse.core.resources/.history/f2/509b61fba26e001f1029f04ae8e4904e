@@ -1,0 +1,5 @@
+package com.app.props;
+
+public class AppProperties {
+
+}

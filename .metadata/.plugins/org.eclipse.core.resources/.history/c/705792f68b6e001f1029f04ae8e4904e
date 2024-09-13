@@ -1,0 +1,102 @@
+//package com.app.service;
+//
+//import java.util.List;
+//import java.util.Map;
+//
+//import org.springframework.stereotype.Service;
+//
+//import com.app.entity.PlanCategory;
+//import com.app.entity.PlanEntity;
+//import com.app.repository.PlanCategoryRepository;
+//import com.app.repository.PlanRepository;
+//
+//@Service
+//public class PlanCategoryServiceImpl implements PlanService {
+//
+//	   private PlanRepository planRepository;
+//
+//	   
+//	    private PlanCategoryRepository planCategoryRepository;
+//	    
+//
+//    public PlanCategoryServiceImpl(PlanRepository planRepository, PlanCategoryRepository planCategoryRepository) {
+//			super();
+//			this.planRepository = planRepository;
+//			this.planCategoryRepository = planCategoryRepository;
+//		}
+//
+//
+//    public PlanCategory savePlanCategory(PlanCategory planCategory) {
+//        return planCategoryRepository.save(planCategory);
+//    }
+//
+// 
+//    public List<PlanCategory> getAllPlanCategories() {
+//        return planCategoryRepository.findAll();
+//    }
+//
+//
+//	@Override
+//	public Map<Integer, String> getPlanCategories() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	@Override
+//	public boolean savePlan(PlanEntity planEntity) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//
+//	@Override
+//	public List<PlanEntity> getAllPlans() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	@Override
+//	public PlanEntity getPlanById(Integer planId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	@Override
+//	public boolean updatePlan(PlanEntity planEntity) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//
+//	@Override
+//	public boolean deletePlanById(Integer planId) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//
+//	@Override
+//	public boolean planStatusChange(Integer planId, String activeSw) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//    
+////
+////    @Override
+////    public PlanCategory getPlanCategoryById(Integer id) {
+////        return planCategoryRepository.findById(id).orElse(null);
+////    }
+////
+////    @Override
+////    public void deletePlanCategory(Integer id) {
+////        planCategoryRepository.deleteById(id);
+////    }
+////
+////    @Override
+////    public PlanCategory updatePlanCategory(PlanCategory planCategory) {
+////        return planCategoryRepository.save(planCategory);
+////    }
+//}

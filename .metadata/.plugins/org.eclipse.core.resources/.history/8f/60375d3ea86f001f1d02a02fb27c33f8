@@ -1,0 +1,84 @@
+package com.api.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.api.entity.Plan;
+import com.api.entity.PlanCategory;
+import com.api.repository.PlanCategoryRepo;
+import com.api.repository.PlanRepo;
+@Service
+public  class  PlanServiceImpl implements PlanService {
+
+	
+	
+	private PlanRepo planRepo;
+
+	
+	private PlanCategoryRepo planCategoryRepo;
+	
+	
+	
+	
+	public PlanServiceImpl(PlanRepo planRepo, PlanCategoryRepo planCategoryRepo) {
+		super();
+		this.planRepo = planRepo;
+		this.planCategoryRepo = planCategoryRepo;
+	}
+
+	@Override
+	public PlanCategory createCategory(PlanCategory planCategory) {
+
+		PlanCategory save = planCategoryRepo.save(planCategory);
+		
+		return save;
+	}
+
+	@Override
+	public Map<Integer, String> getPlanCategories() {
+		
+		
+		return null;
+	}
+
+	@Override
+	public boolean savePlan(Plan plan) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Plan> getAllPlans() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Plan getPlanById(Integer planId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updatePlan(Plan plan) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deletePlanById(Integer planId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean planStatusChange(Integer planId, String activeSw) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+}

@@ -1,0 +1,103 @@
+package com.api.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.binding.EligibilityBinding;
+import com.api.model.EligibilityModel;
+import com.api.request.SearchRequest;
+import com.api.responce.SearchResponse;
+import com.api.service.ReportServiceImpl;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+@RestController
+@RequestMapping("/app")
+public class ReportController {
+	
+	private ReportServiceImpl reportServiceImpl;
+
+
+    public ReportController(ReportServiceImpl reportServiceImpl) {
+		super();
+		this.reportServiceImpl = reportServiceImpl;
+	}
+    @PostMapping("/GetEligibleDetails")
+    public ResponseEntity<EligibilityBinding> createPlanName(@RequestBody EligibilityBinding binding) {
+
+        EligibilityModel EM = new EligibilityModel();
+        BeanUtils.copyProperties(binding, EM);
+        
+        reportServiceImpl.createUseerData(EM);
+        
+        
+        EligibilityBinding EB=new EligibilityBinding();
+        BeanUtils.copyProperties(EM, EB);
+        
+        return new ResponseEntity<>(EB, HttpStatus.CREATED);
+    }
+	@GetMapping("/plan")
+	
+	public ResponseEntity<List<String>> getPlanName(){
+		
+		List<String> planNames = reportServiceImpl.findUniquePlanName();
+		
+		return new ResponseEntity<List<String>> (planNames,HttpStatus.OK);
+	}
+	
+	@GetMapping("/status")
+	
+	public ResponseEntity<List<String>> getPlanStatus(){
+		
+		List<String> planStatuses = reportServiceImpl.findUniquePlanName();
+		
+		return new ResponseEntity<List<String>> (planStatuses,HttpStatus.OK);
+	}
+    
+    @GetMapping("/Search")
+    public List<SearchResponse> search(@RequestBody SearchRequest request){
+    	
+    	List<SearchResponse> search = reportServiceImpl.search(request);
+
+		return search;
+	
+    }
+	@GetMapping("/excel")
+	public void generateExcel(HttpServletResponse response) throws IOException {
+		
+		
+		response.setContentType("application/octet-stream");
+		
+		String headerKey = "Content-Disposition";
+		
+		String headerValue = "attachment; filename = data.xls";
+		
+		response.setHeader(headerKey, headerValue);
+		
+		reportServiceImpl.generateExcel(response);
+	}
+//	@GetMapping("/pdf")
+//	public void generatePdf(HttpServletResponse response) throws IOException {
+//		
+//		response.setContentType("application/pdf");
+//		
+//		String headerKey = "Content-Disposition";
+//		
+//		String headerValue = "attachment; filename = data.pdf";
+//		
+//		response.setHeader(headerKey, headerValue);
+//		
+//		reportServiceImpl.generatePdf(response);
+//	}
+
+
+}

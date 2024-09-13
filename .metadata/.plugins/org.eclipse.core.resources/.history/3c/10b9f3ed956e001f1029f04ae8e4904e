@@ -1,0 +1,21 @@
+package com.app.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "PLAN_CATEGORY")
+public class PlanCategory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CATEGORY_ID")
+    private Integer categoryId;
+
+    @Column(name = "CATEGORY_NAME")
+    private String categoryName;
+
+    // Add other fields and annotations if needed
+}

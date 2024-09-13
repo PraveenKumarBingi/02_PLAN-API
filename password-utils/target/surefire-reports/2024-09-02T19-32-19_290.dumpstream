@@ -1,0 +1,5 @@
+# Created at 2024-09-02T19:32:19.754
+Boot Manifest-JAR contains absolute paths in classpath 'D:\workspace_spring_microservices\password-utils\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

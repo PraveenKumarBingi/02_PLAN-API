@@ -1,0 +1,86 @@
+package comm.app.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.app.entity.PlanCategory;
+import com.app.entity.PlanEntity;
+import com.app.repository.PlanCategoryRepo;
+import com.app.repository.PlaneRepo;
+
+@Service
+public class PlanServiceImpl implements PlanService {
+
+    private final PlaneRepo planRepo;
+    private final PlanCategoryRepo planCategoryRepo;
+
+    // Constructor-based dependency injection
+    public PlanServiceImpl(PlaneRepo planRepo, PlanCategoryRepo planCategoryRepo) {
+        this.planRepo = planRepo;
+        this.planCategoryRepo = planCategoryRepo;
+    }
+
+    @Override
+    public Map<Integer, String> getPlanCategories() {
+        List<PlanCategory> categories = planCategoryRepo.findAll();
+        Map<Integer, String> categoryMap = new HashMap<>();
+        categories.forEach(category -> {
+            categoryMap.put(category.getPlanCategoryId(), category.getCategoryName());
+        });
+        return categoryMap;
+    }
+
+    @Override
+    public boolean savePlan(PlanEntity planEntity) {
+        PlanEntity saved = planRepo.save(planEntity);
+        return saved.getPlanId() != null;
+    }
+
+    @Override
+    public List<PlanEntity> getAllPlans() {
+        return planRepo.findAll();
+    }
+
+    @Override
+    public PlanEntity getPlanById(Integer planId) {
+        Optional<PlanEntity> findById = planRepo.findById(planId);
+        return findById.orElse(null); // Return null if the plan isn't found
+    }
+
+    @Override
+    public boolean updatePlan(PlanEntity planEntity) {
+        PlanEntity updated = planRepo.save(planEntity); // Save or update the plan
+        return updated.getPlanId() != null; // Return true if update was successful
+    }
+
+    @Override
+    public boolean deletePlanById(Integer planId) {
+        try {
+            planRepo.deleteById(planId); // Delete the plan by ID
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error
+            return false;
+        }
+    }
+
+    @Override
+    public boolean planStatusChange(Integer planId, String activeSw) {
+        Optional<PlanEntity> findById = planRepo.findById(planId);
+        if (findById.isPresent()) {
+            PlanEntity plan = findById.get();
+            plan.setActiveSw(activeSw); // Update the status
+            planRepo.save(plan); // Save the updated entity
+            return true;
+        }
+        return false;
+    }
+}
+
+
+ 
+

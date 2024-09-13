@@ -1,0 +1,46 @@
+package com.app.binding;
+
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+public class PlaneBinding {
+	
+
+	
+	private Integer planId;
+	
+	
+	private String planName;
+	
+	
+	private LocalDate planStartDate; 
+	
+	
+	private LocalDate planEndDate; 
+	
+
+	private String activeSw;
+	
+
+	private Integer planCategoryId;
+	
+
+	private String createdBy;
+	
+	
+	private String updatedBy;
+
+	private LocalDate createDate;
+	
+
+	private LocalDate updateDate;
+	
+	
+
+}

@@ -1,0 +1,13 @@
+package com.app.service;
+
+import com.app.entity.PlanCategory;
+
+import java.util.List;
+
+public interface PlanCategoryService {
+    PlanCategory savePlanCategory(PlanCategory planCategory);
+    List<PlanCategory> getAllPlanCategories();
+    PlanCategory getPlanCategoryById(Integer id);
+    void deletePlanCategory(Integer id);
+    PlanCategory updatePlanCategory(PlanCategory planCategory);
+}

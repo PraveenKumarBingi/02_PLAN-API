@@ -1,0 +1,42 @@
+package com.app.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.app.entity.PlanCategory;
+import com.app.service.PlanService;
+
+@RestController
+@RequestMapping("/plan-category")
+public class PlanCategoryController {
+
+    private final PlanService planCategoryService;
+
+    public PlanCategoryController(PlanService planCategoryService) {
+        this.planCategoryService = planCategoryService;
+    }
+
+    // Method to save a PlanCategory
+    @PostMapping("/save")
+    public ResponseEntity<PlanCategory> savePlanCategory(@RequestBody PlanCategory planCategory) {
+        PlanCategory savedPlanCategory = planCategoryService.savePlanCategory(planCategory);
+        return ResponseEntity.ok(savedPlanCategory);
+    }
+
+    // Method to get all Plan Categories
+    @GetMapping("/all")
+    public ResponseEntity<List<PlanCategory>> getAllPlanCategories() {
+        List<PlanCategory> planCategories = planCategoryService.getAllPlanCategories();
+        return ResponseEntity.ok(planCategories);
+    }
+
+    // Method to get a map of Plan Category IDs and Names
+    @GetMapping("/categories")
+    public ResponseEntity<Map<Integer, String>> getPlanCategories() {
+        Map<Integer, String> categories = planCategoryService.getPlanCategories();
+        return ResponseEntity.ok(categories);
+    }
+}

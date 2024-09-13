@@ -1,0 +1,55 @@
+package com.app.controller;
+
+import com.app.entity.PlanCategory;
+import com.app.service.PlanCategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/plan-categories")
+public class PlanCategoryController {
+
+   
+    private PlanCategoryService planCategoryService;
+
+    
+    
+    public PlanCategoryController(PlanCategoryService planCategoryService) {
+		super();
+		this.planCategoryService = planCategoryService;
+	}
+
+	@PostMapping
+    public ResponseEntity<PlanCategory> createPlanCategory(@RequestBody PlanCategory planCategory) {
+        PlanCategory savedPlanCategory = planCategoryService.savePlanCategory(planCategory);
+        return ResponseEntity.ok(savedPlanCategory);
+    }
+//
+//    @GetMapping
+//    public ResponseEntity<List<PlanCategory>> getAllPlanCategories() {
+//        List<PlanCategory> planCategories = planCategoryService.getAllPlanCategories();
+//        return ResponseEntity.ok(planCategories);
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PlanCategory> getPlanCategoryById(@PathVariable Integer id) {
+//        PlanCategory planCategory = planCategoryService.getPlanCategoryById(id);
+//        return ResponseEntity.ok(planCategory);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<PlanCategory> updatePlanCategory(@PathVariable Integer id, @RequestBody PlanCategory planCategory) {
+//        planCategory.setPlanCategoryId(id);
+//        PlanCategory updatedPlanCategory = planCategoryService.updatePlanCategory(planCategory);
+//        return ResponseEntity.ok(updatedPlanCategory);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deletePlanCategory(@PathVariable Integer id) {
+//        planCategoryService.deletePlanCategory(id);
+//        return ResponseEntity.noContent().build();
+//    }
+}

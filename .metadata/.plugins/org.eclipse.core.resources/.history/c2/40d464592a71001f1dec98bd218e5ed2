@@ -1,0 +1,58 @@
+package com.api.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.binding.EligibilityBinding;
+import com.api.model.EligibilityModel;
+import com.api.service.ReportServiceImpl;
+
+@RestController
+@RequestMapping("/app")
+public class ReportController {
+	
+	private ReportServiceImpl reportServiceImpl;
+
+
+    public ReportController(ReportServiceImpl reportServiceImpl) {
+		super();
+		this.reportServiceImpl = reportServiceImpl;
+	}
+    @PostMapping("/GetUniquePlanName")
+    public ResponseEntity<EligibilityBinding> createPlanName(@RequestBody EligibilityBinding binding) {
+
+        EligibilityModel EM = new EligibilityModel();
+
+        // Set properties from binding to model
+        EM.setName(binding.getName());
+        EM.setMobile(binding.getMobile());
+        EM.setEmail(binding.getEmail());
+        EM.setGender(binding.getGender());
+        EM.setPlanName(binding.getPlanName());
+        EM.setPlanStatus(binding.getPlanStatus());
+        EM.setSsn(binding.getSsn());
+
+        // Call the service to retrieve plan details
+        EligibilityModel planNames = reportServiceImpl.getPlanNames(EM);
+
+        // Copy returned data to binding
+        binding.setName(planNames.getName());
+        binding.setEmail(planNames.getEmail());
+        binding.setMobile(planNames.getMobile());
+        binding.setGender(planNames.getGender());
+        binding.setPlanName(planNames.getPlanName());
+        binding.setPlanStatus(planNames.getPlanStatus());
+        binding.setSsn(planNames.getSsn());
+
+        // Return the binding object wrapped in ResponseEntity
+        return new ResponseEntity<>(binding, HttpStatus.CREATED);
+    }
+
+
+
+}

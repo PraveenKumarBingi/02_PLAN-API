@@ -1,0 +1,70 @@
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.entity.PlanCategory;
+import com.app.service.PlanCategoryServiceImpl;
+import com.app.service.PlanService;
+
+@RestController
+@RequestMapping("/api/plan-categories")
+public class PlanCategoryController {
+	
+	
+	
+	 private PlanService planService;
+
+	    
+	    
+	    public PlanCategoryController(PlanService planService) {
+			super();
+			this.planService = planService;
+		}
+   
+    private PlanService planCategoryService;
+
+    
+    
+    public PlanCategoryController(PlanCategoryServiceImpl planCategoryService) {
+		super();
+		this.planCategoryService = planCategoryService;
+	}
+
+	@PostMapping
+    public ResponseEntity<PlanCategory> createPlanCategory(@RequestBody PlanCategory planCategory) {
+        PlanCategory savedPlanCategory = planCategoryService.savePlanCategory(planCategory);
+        return ResponseEntity.ok(savedPlanCategory);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlanCategory>> getAllPlanCategories() {
+        List<PlanCategory> planCategories = planCategoryService.getAllPlanCategories();
+        return ResponseEntity.ok(planCategories);
+    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PlanCategory> getPlanCategoryById(@PathVariable Integer id) {
+//        PlanCategory planCategory = planCategoryService.getPlanCategoryById(id);
+//        return ResponseEntity.ok(planCategory);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<PlanCategory> updatePlanCategory(@PathVariable Integer id, @RequestBody PlanCategory planCategory) {
+//        planCategory.setPlanCategoryId(id);
+//        PlanCategory updatedPlanCategory = planCategoryService.updatePlanCategory(planCategory);
+//        return ResponseEntity.ok(updatedPlanCategory);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deletePlanCategory(@PathVariable Integer id) {
+//        planCategoryService.deletePlanCategory(id);
+//        return ResponseEntity.noContent().build();
+//    }
+}

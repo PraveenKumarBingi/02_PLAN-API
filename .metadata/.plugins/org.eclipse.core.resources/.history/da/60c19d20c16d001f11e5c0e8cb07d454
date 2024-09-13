@@ -1,0 +1,5 @@
+package comm.app.service;
+
+public class PlaneServiceImpl {
+
+}

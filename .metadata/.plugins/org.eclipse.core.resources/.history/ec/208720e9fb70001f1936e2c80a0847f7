@@ -1,0 +1,37 @@
+package com.api.service;
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.api.repository.ElibilityRepo;
+
+@Service
+public class ReportServiceImpl implements ReportService {
+	
+	private ElibilityRepo eligibilityRepo;
+	
+
+	public ReportServiceImpl(ElibilityRepo eligibilityRepo) {
+		super();
+		this.eligibilityRepo = eligibilityRepo;
+	}
+	
+	public  List<String> findUniquePlanName() {
+		
+		List<String> uniquePlanName = eligibilityRepo.findUniquePlanName();		
+		return uniquePlanName;
+	}
+	
+	public List<String> findUniquePlanStatus() {
+		List<String> uniquePlanStatus = eligibilityRepo.findUniquePlanStatus();
+		return uniquePlanStatus;
+	}
+
+
+
+	
+	
+	
+}

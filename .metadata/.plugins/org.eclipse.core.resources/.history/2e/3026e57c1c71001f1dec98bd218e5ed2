@@ -1,0 +1,99 @@
+package com.api.service;
+
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+import com.api.entity.EligibilityDetails;
+import com.api.repository.ElibilityRepo;
+import com.api.request.SearchRequest;
+import com.api.responce.SearchResponse;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+@Service
+public class ReportServiceImpl implements ReportService {
+	
+	private ElibilityRepo eligibilityRepo;
+	
+
+	public ReportServiceImpl(ElibilityRepo eligibilityRepo) {
+		super();
+		this.eligibilityRepo = eligibilityRepo;
+	}
+	
+	public  List<String> findUniquePlanName() {
+		
+		List<String> uniquePlanName = eligibilityRepo.findUniquePlanName();		
+		return uniquePlanName;
+	}
+	
+	public List<String> findUniquePlanStatus() {
+		List<String> uniquePlanStatus = eligibilityRepo.findUniquePlanStatus();
+		return uniquePlanStatus;
+	
+	}
+	
+
+
+	@Override
+	public List<SearchResponse> search(SearchRequest request) {
+	List<SearchResponse> response = new ArrayList<>();
+		
+		EligibilityDetails queryBuilder = new EligibilityDetails();
+		
+		String planName = request.getPlanName();
+		if(planName!=null && !planName.equals("")) {
+			queryBuilder.setPlanName(planName);
+		}
+		
+		String planStatus = request.getPlanStatus();
+		if(planStatus!=null && !planStatus.equals("")) {
+			queryBuilder.setPlanStatus(planStatus);
+		}
+		
+		LocalDate planStartDate = request.getPlanStartDate();
+		if(planStartDate!=null) {
+			queryBuilder.setPlanStartDate(planStartDate);
+		}
+		
+		LocalDate planEndDate = request.getPlanEndDate();
+		if(planEndDate!=null) {
+			queryBuilder.setPlanEndDate(planEndDate);
+		}
+		Example<EligibilityDetails> example = Example.of(queryBuilder);
+		
+		List<EligibilityDetails> entities = eligRepo.findAll(example);
+		for(EligibilityDetails entity : entities) {
+			SearchResponse sr = new SearchResponse();
+			BeanUtils.copyProperties(entity, sr);
+			response.add(sr);
+		}
+		return response;
+	}
+
+	@Override
+	public void generateExcel(HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+//	@Override
+//	public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
+
+
+
+	
+	
+	
+}

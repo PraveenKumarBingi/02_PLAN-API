@@ -1,0 +1,85 @@
+package comm.app.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.el.stream.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.entity.PlanCategory;
+import com.app.entity.PlanEntity;
+import com.app.repository.PlanCategoryRepo;
+import com.app.repository.PlaneRepo;
+
+
+@Service
+public class PlanServiceImpl implements PlanService {
+
+    @Autowired
+    private PlaneRepo planRepo;
+
+    @Autowired
+    private PlanCategoryRepo planCategoryRepo;
+
+	@Override
+	public Map<Integer, String> getPlanCategories() {
+		 List<PlanCategory> categories = planCategoryRepo.findAll();
+	        Map<Integer, String> categoryMap = new HashMap<>();
+	        categories.forEach(category -> {
+	            categoryMap.put(category.getPlanCategoryId(), category.getCategoryName());
+	        });
+	        return categoryMap;
+	}
+
+	@Override
+	public boolean savePlan(PlanEntity planEntity) {
+		  PlanEntity saved = planRepo.save(planEntity);
+	        return saved.getPlanId() != null;
+	}
+
+	@Override
+	public List<PlanEntity> getAllPlans() {
+		return planRepo.findAll();
+	}
+
+	@Override
+	public PlanEntity getPlanById(Integer planId) {
+        Optional<PlanEntity> findById = planRepo.findById(planId);
+        return findById.orElse(null);
+
+	}
+
+	@Override
+	public boolean updatePlan(PlanEntity planEntity) {
+		  planRepo.save(planEntity);
+	        return planEntity.getPlanId() != null;
+	}
+
+	@Override
+	public boolean deletePlanById(Integer planId) {
+		 try {
+	            planRepo.deleteById(planId);
+	            return true;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	}
+
+	@Override
+	public boolean planStatusChange(Integer planId, String activeSw) {
+	    Optional<PlanEntity> findById = planRepo.findById(planId);
+        if (findById.isPresent()) {
+            PlanEntity plan = findById.get();
+            plan.setActiveSw(activeSw);
+            planRepo.save(plan);
+            return true;
+        }
+        return false;
+    }
+}
+
+ 
+

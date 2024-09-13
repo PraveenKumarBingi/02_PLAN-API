@@ -1,0 +1,33 @@
+package com.app.controller;
+
+import com.app.binding.PlanBinding;
+import com.app.binding.PlanCategoryBinding;
+import com.app.entity.PlanEntity;
+import com.app.service.PlanService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/plans")
+public class PlanController {
+
+    @Autowired
+    private PlanService planService;
+
+    @PostMapping("/create")
+    public String createPlan(@RequestBody PlanEntity planBinding) {
+        planService.savePlan(planBinding);
+        return "Plan saved successfully!";
+    }
+
+    @PostMapping("/create-category")
+    public String createPlanCategory(@RequestBody PlanCategoryBinding planCategoryBinding) {
+        planService.savePlanCategory(planCategoryBinding);
+        return "Plan Category saved successfully!";
+    }
+
+    @GetMapping("/{planId}")
+    public PlanEntity getPlanById(@PathVariable Integer planId) {
+        return planService.getPlanById(planId);
+    }
+}

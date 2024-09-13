@@ -1,0 +1,40 @@
+package com.app.service;
+
+import com.app.entity.PlanCategory;
+import com.app.repository.PlanCategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PlanCategoryServiceImpl implements PlanCategoryService {
+
+    @Autowired
+    private PlanCategoryRepository planCategoryRepository;
+
+    @Override
+    public PlanCategory savePlanCategory(PlanCategory planCategory) {
+        return planCategoryRepository.save(planCategory);
+    }
+
+    @Override
+    public List<PlanCategory> getAllPlanCategories() {
+        return planCategoryRepository.findAll();
+    }
+//
+//    @Override
+//    public PlanCategory getPlanCategoryById(Integer id) {
+//        return planCategoryRepository.findById(id).orElse(null);
+//    }
+//
+//    @Override
+//    public void deletePlanCategory(Integer id) {
+//        planCategoryRepository.deleteById(id);
+//    }
+//
+//    @Override
+//    public PlanCategory updatePlanCategory(PlanCategory planCategory) {
+//        return planCategoryRepository.save(planCategory);
+//    }
+}

@@ -1,0 +1,36 @@
+package com.api.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.entity.PlanCategory;
+import com.api.service.PlanServiceImpl;
+
+@RestController("/api")
+public class PlanController {
+	
+	
+	private PlanServiceImpl planServiceImpl;
+
+	public PlanController(PlanServiceImpl planServiceImpl) {
+		super();
+		this.planServiceImpl = planServiceImpl;
+	}
+
+
+@PostMapping("/creteCategory")
+	public  ResponseEntity<PlanCategory> createPlanCategory(@RequestBody PlanCategory planCategory) {
+		 
+	
+	          PlanCategory category = planServiceImpl.createCategory(planCategory);
+		
+		return   new ResponseEntity<PlanCategory>(category, HttpStatus.CREATED);
+		 
+	 }
+	
+	
+	
+}

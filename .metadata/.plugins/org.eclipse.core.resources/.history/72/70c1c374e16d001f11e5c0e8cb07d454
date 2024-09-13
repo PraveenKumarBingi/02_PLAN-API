@@ -1,0 +1,95 @@
+package com.app.controller;
+
+import com.app.binding.PlanBinding;
+import com.app.entity.PlanEntity;
+import com.app.service.PlanService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/plans")
+public class PlanController {
+
+    @Autowired
+    private PlanService planService;
+
+    @GetMapping("/categories")
+    public ResponseEntity<Map<Integer, String>> getPlanCategories() {
+        Map<Integer, String> categories = planService.getPlanCategories();
+        return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Boolean> savePlan(@RequestBody PlanBinding planBinding) {
+        PlanEntity planEntity = new PlanEntity();
+        // Convert PlanBinding to PlanEntity
+        planEntity.setPlanId(planBinding.getPlanId());
+        planEntity.setPlanName(planBinding.getPlanName());
+        planEntity.setPlanStartDate(planBinding.getPlanStartDate());
+        planEntity.setPlanEndDate(planBinding.getPlanEndDate());
+        planEntity.setActiveSw(planBinding.getActiveSw());
+        planEntity.setPlanCategoryId(planBinding.getPlanCategoryId());
+        planEntity.setCreatedBy(planBinding.getCreatedBy());
+        planEntity.setUpdatedBy(planBinding.getUpdatedBy());
+        planEntity.setCreateDate(planBinding.getCreateDate());
+        planEntity.setUpdateDate(planBinding.getUpdateDate());
+        boolean result = planService.savePlan(planEntity);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PlanBinding>> getAllPlans() {
+        List<PlanEntity> plans = planService.getAllPlans();
+        List<PlanBinding> planBindings = plans.stream().map(plan -> {
+            PlanBinding binding = new PlanBinding();
+            // Convert PlanEntity to PlanBinding
+            binding.setPlanId(plan.getPlanId());
+            binding.setPlanName(plan.getPlanName());
+            binding.setPlanStartDate(plan.getPlanStartDate());
+            binding.setPlanEndDate(plan.getPlanEndDate());
+            binding.setActiveSw(plan.getActiveSw());
+            binding.setPlanCategoryId(plan.getPlanCategoryId());
+            binding.setCreatedBy(plan.getCreatedBy());
+            binding.setUpdatedBy(plan.getUpdatedBy());
+            binding.setCreateDate(plan.getCreateDate());
+            binding.setUpdateDate(plan.getUpdateDate());
+            return binding;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(planBindings);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> updatePlan(@RequestBody PlanBinding planBinding) {
+        PlanEntity planEntity = new PlanEntity();
+        // Convert PlanBinding to PlanEntity
+        planEntity.setPlanId(planBinding.getPlanId());
+        planEntity.setPlanName(planBinding.getPlanName());
+        planEntity.setPlanStartDate(planBinding.getPlanStartDate());
+        planEntity.setPlanEndDate(planBinding.getPlanEndDate());
+        planEntity.setActiveSw(planBinding.getActiveSw());
+        planEntity.setPlanCategoryId(planBinding.getPlanCategoryId());
+        planEntity.setCreatedBy(planBinding.getCreatedBy());
+        planEntity.setUpdatedBy(planBinding.getUpdatedBy());
+        planEntity.setCreateDate(planBinding.getCreateDate());
+        planEntity.setUpdateDate(planBinding.getUpdateDate());
+        boolean result = planService.updatePlan(planEntity);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/delete/{planId}")
+    public ResponseEntity<Boolean> deletePlanById(@PathVariable Integer planId) {
+        boolean result = planService.deletePlanById(planId);
+        return ResponseEntity.ok(result);
+    }
+
+    @PatchMapping("/status/{planId}")
+    public ResponseEntity<Boolean> changePlanStatus(@PathVariable Integer planId, @RequestParam String activeSw) {
+        boolean result = planService.planStatusChange(planId, activeSw);
+        return ResponseEntity.ok(result);
+    }
+}

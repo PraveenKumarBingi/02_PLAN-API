@@ -1,0 +1,33 @@
+package com.api.entity;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class EligibilityDetails {
+	
+	
+	@Id
+	private Integer eligId;
+	
+	private String name;
+	
+	private Long mobile;
+	
+	private String email;
+	
+	private Character gender;
+	
+	private Long ssn;
+	
+	private String planName;
+	
+	private String planStatus;
+
+}

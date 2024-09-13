@@ -1,0 +1,22 @@
+package com.api.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.api.entity.EligibilityDetails;
+@Repository
+public interface ElibilityRepo extends JpaRepository<EligibilityDetails, Integer> {
+	
+	
+	@Query("select distinct(planName) from EligibilityDetails ")
+	  List<String> findUniquePlanName();
+	
+	@Query("select distinct(PlaneStatus) from EligibilityDetails" )
+	 List<String> findUniquePlanStatus();
+
+	
+
+}

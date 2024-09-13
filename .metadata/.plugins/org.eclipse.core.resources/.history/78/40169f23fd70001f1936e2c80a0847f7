@@ -1,0 +1,47 @@
+package com.api.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.binding.EligibilityBinding;
+import com.api.model.EligibilityModel;
+import com.api.service.ReportServiceImpl;
+
+@RestController
+public class ReportController {
+	
+	private ReportServiceImpl reportServiceImpl;
+	
+	
+	
+	public ReportController(ReportServiceImpl reportServiceImpl) {
+		super();
+		this.reportServiceImpl = reportServiceImpl;
+	}
+
+
+
+	public ResponseEntity<String>   createPlanName(EligibilityBinding binding) {
+		
+		EligibilityModel EM=new EligibilityModel();
+		EM.setEligId(binding.getEligId());
+		EM.setName(binding.getName());
+		EM.setMobile(binding.getMobile());
+		EM.setEmail(binding.getEmail());
+		EM.setGender(binding.getGender());
+		EM.setPlanName(binding.getPlanName());
+		EM.setPlanStatus(binding.getPlanStatus());
+		EM.setSsn(binding.getSsn());
+		
+		reportServiceImpl.c
+		
+		
+		
+		
+		
+		
+		return null;
+		
+	}
+
+}

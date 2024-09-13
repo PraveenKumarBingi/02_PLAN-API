@@ -1,0 +1,99 @@
+package com.api.service;
+
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.api.entity.EligibilityDetails;
+import com.api.model.EligibilityModel;
+import com.api.repository.ElibilityRepo;
+import com.api.request.SearchRequest;
+import com.api.responce.SearchResponse;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+@Service
+public class ReportServiceImpl implements ReportService {
+	
+	private ElibilityRepo eligibilityRepo;
+	
+
+	public ReportServiceImpl(ElibilityRepo eligibilityRepo) {
+		super();
+		this.eligibilityRepo = eligibilityRepo;
+	}
+	
+	public  List<String> findUniquePlanName() {
+		
+		List<String> uniquePlanName = eligibilityRepo.findUniquePlanName();		
+		return uniquePlanName;
+	}
+	
+	public List<String> findUniquePlanStatus() {
+		List<String> uniquePlanStatus = eligibilityRepo.findUniquePlanStatus();
+		return uniquePlanStatus;
+	
+	}
+	
+	@Override
+	public List<EligibilityModel> getPlanNames( EligibilityModel eligibilityModel) {
+		
+		    EligibilityDetails ED=new EligibilityDetails();
+		    
+		  
+		    ED.setName(eligibilityModel.getName());
+		    ED.setEmail(eligibilityModel.getEmail());
+		    ED.setGender(eligibilityModel.getGender());
+		    ED.setSsn(eligibilityModel.getSsn());
+		    ED.setPlanName(eligibilityModel.getPlanName());
+		    ED.setPlanStatus(eligibilityModel.getPlanStatus());
+		    
+		    EligibilityDetails saved = eligibilityRepo.save(ED);
+	
+		    
+		    eligibilityModel.setName(saved.getName());
+		    eligibilityModel.setEmail(saved.getEmail());
+		    eligibilityModel.setGender(saved.getGender());
+		    eligibilityModel.setPlanName(saved.getPlanName());
+		    eligibilityModel.setPlanStatus(saved.getPlanStatus());
+		    eligibilityModel.setSsn(saved.getSsn());
+
+		    return eligibilityModel ;
+	}
+
+	@Override
+	public List<String> getPlanStatuses(EligibilityModel eligibilityModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<SearchResponse> search(SearchRequest request) {
+
+		
+		
+		return null;
+	}
+
+	@Override
+	public void generateExcel(HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	
+	
+	
+}
